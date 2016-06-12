@@ -24,7 +24,6 @@ class AwesomeApp extends Component {
         </Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
         </Text>
       </View>
     );

@@ -42,7 +42,8 @@ app.authWithPassword({
     alert(error.code)
   }else{
 
-  console.log(authData)
+  //console.log(authData.uid.password.email)
+
   AsyncStorage.setItem(authData, JSON.stringify(authData));
    
 

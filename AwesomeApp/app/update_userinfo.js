@@ -13,7 +13,7 @@ import {
 
 import Firebase from 'firebase';
 
-let app = new Firebase("https://todoappmuneer.firebaseio.com");
+let app = new Firebase("https://todoappmuneer.firebaseio.com/");
 
 class UpdateInfo extends Component {
 
@@ -21,24 +21,56 @@ class UpdateInfo extends Component {
 constructor(props){
 super(props)
 this.state = {
-  email : "",
-  password : "",
+  //email : "",
+  name : "",
+  address_1:"",
+  address_2:"",
+  mobile:""
+  
   
 
 }
 
 }
 
+onUpdatePress(){
+//Update Information of curent user
+let firbase_baseurl = "https://todoappmuneer.firebaseio.com/"
+let username = this.state.name;
+let app = new Firebase(firbase_baseurl+username);//new url
 
- // Custom methods
+app.set({
 
- 
+  address_1 : this.state.address_1,
+  address_2: this.state.address_2,
+  mobile : this.state.mobile
+
+});
+
+}
+
 
   
 
 render() {
-return (
 
+ // retrive curent user name from async
+    AsyncStorage.getItem("user_name")
+    .then(
+    (value) => {
+    this.setState({name :value})
+
+    }
+
+    )
+//************************************//
+
+
+
+
+
+return (
+//
 
 <View style={styles.container}>
 <Text>Update User Information</Text>
@@ -47,8 +79,8 @@ return (
 <TextInput placeholder="Address Line 2 " onChangeText = {(text) => this.setState({address_2:text})} value={this.state.address_2}/>
 <TextInput placeholder="Mobile " onChangeText = {(text) => this.setState({mobile:text})} value={this.state.mobile}/>
 
-<Text> </Text>
-<TouchableHighlight><Text>Update</Text></TouchableHighlight>
+<Text>{this.state.v1} </Text>
+<TouchableHighlight onPress={this.onUpdatePress.bind(this)}><Text>Update</Text></TouchableHighlight>
 </View>
 
 

@@ -17,14 +17,14 @@ import {
 
 import SignIn from './app/signin'
 import SignUp from './app/signup'
-import Account from './app/account'
+//import Account from './app/account'
 import UpdateInfo from './app/update_userinfo'
 
 var ROUTES = {
 
   signin : SignIn,
   signup : SignUp,
-  account : Account,
+  //account : Account,
   updateinfo:UpdateInfo
 }
 

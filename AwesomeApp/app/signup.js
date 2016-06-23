@@ -41,8 +41,9 @@ this.state = {
 
 
 onRegister(){
+  /*
   let username = this.state.name;
-  let app = new Firebase(firbase_baseurl+username);// ref = https://todoappmuneer.firebaseio.com/{current user name}
+  let app = new Firebase(firbase_baseurl+username);// ref = https://todoappmuneer.firebaseio.com/users/{current user name}
   this.props.navigator.push({name : 'signin'});
 
   //Set User Name in AsychStorage so updateinfo can identify the user
@@ -56,7 +57,10 @@ app.set({
 
 
 });
+*/
 //console.log("Sign Up")
+let app = new Firebase(firbase_baseurl);// ref = https://todoappmuneer.firebaseio.com/users/{current user name}
+
 app.createUser({
   'email':this.state.email,
   'password':this.state.password,
@@ -68,7 +72,7 @@ app.createUser({
   else{
     alert("Your Account Created Successfully !!")
     this.props.navigator.push(
-      {name : 'updateinfo'}
+      {name : 'signin'}
           
       
       );
@@ -89,7 +93,7 @@ app.createUser({
     <TextInput placeholder="Name" onChangeText = {(text) => this.setState({name:text})} value={this.state.name}/>
     <TextInput placeholder="Last Name" onChangeText = {(text) => this.setState({lname:text})} value={this.state.lname}/>
     
-    <TouchableHighlight onPress={this.onRegister.bind(this)}><Text>Sign UP</Text></TouchableHighlight>
+    <TouchableHighlight onPress={this.onRegister.bind(this)}><Text>Register</Text></TouchableHighlight>
 
 
     </View>

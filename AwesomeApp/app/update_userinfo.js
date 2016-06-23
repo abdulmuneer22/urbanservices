@@ -13,6 +13,12 @@ import {
 
 import Firebase from 'firebase';
 
+let UID123_new_object = {
+
+  'addressUpdated': 'yes'
+
+}
+
 let app = new Firebase("https://todoappmuneer.firebaseio.com/");
 
 class UpdateInfo extends Component {
@@ -25,27 +31,39 @@ this.state = {
   name : "",
   address_1:"",
   address_2:"",
-  mobile:""
+  mobile:"",
+  uid : "",
+  address : ""
   
   
 
 }
 
 }
+
+
+
 
 onUpdatePress(){
+
+
 //Update Information of curent user
 let firbase_baseurl = "https://todoappmuneer.firebaseio.com/"
+let node = "users/"
 let username = this.state.name;
-let app = new Firebase(firbase_baseurl+username);//new url
+let app = new Firebase(firbase_baseurl+node+username);//new url
 
-app.set({
-
+app.update({
+  uid : this.state.uid,
+  name: this.state.name,
   address_1 : this.state.address_1,
   address_2: this.state.address_2,
   mobile : this.state.mobile
 
 });
+
+//Set Updated_Address Flag to true, So need to redirect customer to update info after login
+
 
 }
 
@@ -54,11 +72,13 @@ app.set({
 
 render() {
 
+  //AsyncStorage.setItem('UID123',JSON.stringify(UID123_new_object))
+
  // retrive curent user name from async
-    AsyncStorage.getItem("user_name")
+    AsyncStorage.getItem("_uid")
     .then(
     (value) => {
-    this.setState({name :value})
+    this.setState({uid :value})
 
     }
 
@@ -79,8 +99,11 @@ return (
 <TextInput placeholder="Address Line 2 " onChangeText = {(text) => this.setState({address_2:text})} value={this.state.address_2}/>
 <TextInput placeholder="Mobile " onChangeText = {(text) => this.setState({mobile:text})} value={this.state.mobile}/>
 
-<Text>{this.state.v1} </Text>
+
 <TouchableHighlight onPress={this.onUpdatePress.bind(this)}><Text>Update</Text></TouchableHighlight>
+<Text>{this.state.address}</Text>
+
+
 </View>
 
 

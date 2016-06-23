@@ -11,28 +11,18 @@ import {
   AsyncStorage
 } from 'react-native';
 
-
-let UID123_object = {
-
-  addressUpdated : 'yes'
-
-}
-
-
 import Firebase from 'firebase';
 
 let app = new Firebase("https://todoappmuneer.firebaseio.com");
 
-class SingIn extends Component {
+class accountInfo extends Component {
 
 // Constructor
 constructor(props){
 super(props)
 this.state = {
-  email : "",
-  password : "",
-  uid : "",
-  addressUpdated: "test"
+ name : "",
+ address_1 : ""
 
 }
 
@@ -51,30 +41,15 @@ app.authWithPassword({
     alert(error.code)
   }else{
 
-  //console.log(authData.uid)
-  this.setState({uid : authData.uid})
-  AsyncStorage.setItem("_uid",authData.uid);
- 
-  AsyncStorage.setItem('UID123',JSON.stringify(UID123_object))
+  //console.log(authData.uid.password.email)
 
-  AsyncStorage.getItem('UID123',(err,result) => {
-  let result_json = JSON.parse(result)
-  //console.log(result_json[0].addressUpdated)
-  //console.log(result_json)
-  console.log(Object.values(result_json))
-  var result = Object.values(result_json)
-  //this.setState({addressUpdated:result})
-  if(result == 'yes')
-  {this.props.navigator.push({name : 'landingpage'})}
-  //console.log("yes")
-  else{
-    //console.log("No")
-    this.props.navigator.push({name : 'updateinfo'})
-  }
-})
-
+  AsyncStorage.setItem(authData, JSON.stringify(authData));
+  AsyncStorage.setItem("key","value");
   
- 
+   
+
+  this.props.navigator.push({name : 'account'});
+
   }
 }
 
@@ -85,35 +60,17 @@ app.authWithPassword({
   onSignUpPress(){
 
     // NAvigate to sign up
-    
+
     this.props.navigator.push({name : 'signup'});
     //console.log(this.props.navigator)
   }
 
-  componentWillMount(){
-
-    // retrive curent user name from async
-    AsyncStorage.getItem("updated_address")
-    .then(
-    (value) => {
-      
-    this.setState({"updated_address" : value})
-    console.log(this.state.updated_address)
-    }
-
-    )
-//************************************//
-
-    //this.setState({updated_address:"false"})
-  }
+  
 
   render() {
-     
-    
-    
-
-
     return (
+
+
       <View style={styles.container}>
       <Text>Sign In</Text>
       <TextInput placeholder="Email" onChangeText = {(text) => this.setState({email:text})} value={this.state.email}/>
@@ -121,12 +78,8 @@ app.authWithPassword({
     
       <Text> </Text>
       <TouchableHighlight onPress={this.onSignInPress.bind(this)}><Text>Sign In</Text></TouchableHighlight>
-      <Text> First Time User ?</Text>
-
+      <Text> </Text>
       <TouchableHighlight onPress={this.onSignUpPress.bind(this)}><Text>Register</Text></TouchableHighlight>
-
-
-      <Text>{this.state.addressUpdated}</Text>
       </View>
 
 
@@ -155,4 +108,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SingIn
+export default accountInfo

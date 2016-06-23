@@ -19,12 +19,15 @@ import SignIn from './app/signin'
 import SignUp from './app/signup'
 //import Account from './app/account'
 import UpdateInfo from './app/update_userinfo'
+import LandingPage from './app/LandingPage'
+
 
 var ROUTES = {
 
   signin : SignIn,
   signup : SignUp,
   //account : Account,
+  landingpage : LandingPage,
   updateinfo:UpdateInfo
 }
 
@@ -43,7 +46,7 @@ class AwesomeApp extends Component {
 
       <Navigator 
       style = {styles.mainscreen}
-      initialRoute={{name:'signin'}}
+      initialRoute={{name:'landingpage'}}
       renderScene={this.renderScene}
       configureScene={()=>{return Navigator.SceneConfigs.FloatFromRight}}      
       />
